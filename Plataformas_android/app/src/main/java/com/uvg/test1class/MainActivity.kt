@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDirection.Companion.Content
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
@@ -39,10 +40,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Test1ClassTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MainScreen(
-                        name = "Camila",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    MainScreen(name = "Camila", modifier = Modifier.padding(innerPadding), onCloseClick = {finish()})
                 }
             }
         }
@@ -50,7 +48,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MainScreen(name: String, modifier: Modifier = Modifier) {
+fun MainScreen(name: String, modifier: Modifier = Modifier, onCloseClick: () -> Unit) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
@@ -80,7 +78,7 @@ fun MainScreen(name: String, modifier: Modifier = Modifier) {
                 fontFamily = FontFamily.Cursive,
                 )
              Button(
-                onClick = { /*TODO*/ },
+                onClick = onCloseClick,
                 shape = ButtonDefaults.shape,
                 colors = ButtonDefaults.buttonColors(Purple40)) {
                 Text(text = "Continuar")
@@ -95,6 +93,6 @@ fun MainScreen(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun MainScreenPreview() {
     Test1ClassTheme {
-        MainScreen("Camila")
+        MainScreen(name = "Camila", onCloseClick = {})
     }
 }
